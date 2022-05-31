@@ -1,0 +1,10 @@
+:root {
+    --correct-icon-color: #fff
+}
+
+.CorrectIcon {
+    fill: var(--correct-icon-color);
+    margin-top: 7px;
+    padding-right: 8px;
+    padding-bottom: 5px;
+}

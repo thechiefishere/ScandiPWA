@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './ProgressBar.style';
+import CorrectIcon from 'Component/CorrectIcon/CorrectIcon.component';
 
 class ProgressBar extends PureComponent {
   static propTypes = {
@@ -36,12 +37,14 @@ class ProgressBar extends PureComponent {
       isActive = true;
     }
 
+    const text = index < indexOfPathInStep ? <CorrectIcon /> : index + 1;
+
     return (
       <div key={index} block='ProgressBar' elem='Container'>
         <div block='ProgressBar' elem='LineAndValue'>
           <div block='ProgressBar' elem='Line' mods={{ isActive }}></div>
           <p block='ProgressBar' elem='Value'>
-            {index + 1}
+            {text}
           </p>
         </div>
         <div block='ProgressBar' elem='Step'>
