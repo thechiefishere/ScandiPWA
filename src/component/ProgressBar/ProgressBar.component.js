@@ -6,16 +6,20 @@ class ProgressBar extends PureComponent {
   static propTypes = {
     // TODO: implement prop-types
     stepMap: PropTypes.object,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        step: PropTypes.string,
+      }),
+    }).isRequired,
   };
 
   renderBar(step, index = 0) {
-    console.log('am in renderBar');
     const { stepMap } = this.props;
+    const { match } = this.props;
     let isActive = false;
-    const pathName = location.pathname;
+    const pathName = match.url;
     let presentPath = '';
     let indexOfPathInStep = null;
-    console.log('presentPathName', presentPath);
 
     if (pathName.indexOf('checkout') !== -1) {
       presentPath = pathName.split('/').slice(-1).toString();
@@ -31,10 +35,6 @@ class ProgressBar extends PureComponent {
     if (indexOfPathInStep !== null && index <= indexOfPathInStep) {
       isActive = true;
     }
-
-    console.log('indexOfPathInStep', indexOfPathInStep);
-    console.log('index', index);
-    console.log('isActive', isActive);
 
     return (
       <div key={index} block='ProgressBar' elem='Container'>

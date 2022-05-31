@@ -15,6 +15,11 @@ export class ProgressBarContainer extends PureComponent {
   static propTypes = {
     // TODO: implement prop-types
     stateMap: PropTypes.object,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        step: PropTypes.string,
+      }),
+    }).isRequired,
   };
 
   containerFunctions = {
@@ -24,6 +29,7 @@ export class ProgressBarContainer extends PureComponent {
   containerProps = () => ({
     // isDisabled: this._getIsDisabled()
     stepMap: this.props.stepMap,
+    match: this.props.match,
   });
 
   render() {

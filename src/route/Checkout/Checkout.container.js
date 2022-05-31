@@ -199,6 +199,7 @@ export class CheckoutContainer extends PureComponent {
       isGuestEmailSaved: false,
       isCreateUser: false,
       estimateAddress: {},
+      reload: 0,
     };
 
     if (is_virtual) {
