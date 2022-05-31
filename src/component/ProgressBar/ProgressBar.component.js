@@ -21,13 +21,15 @@ class ProgressBar extends PureComponent {
     let presentPath = '';
     let indexOfPathInStep = null;
 
+    console.log('pathName', pathName);
+
     if (pathName.indexOf('checkout') !== -1) {
       presentPath = pathName.split('/').slice(-1).toString();
     }
 
     for (let i = 0; i < Object.keys(stepMap).length; i++) {
-      const step = Object.keys(stepMap)[i];
-      if (step.toLowerCase().indexOf(presentPath) !== -1) {
+      const step = stepMap[Object.keys(stepMap)[i]].url;
+      if (step.indexOf(presentPath) !== -1) {
         indexOfPathInStep = i;
         break;
       }
@@ -53,8 +55,8 @@ class ProgressBar extends PureComponent {
 
   renderProgressBars() {
     const { stepMap } = this.props;
-    return Object.keys(stepMap).map((step, index) =>
-      this.renderBar.bind(this)(step, index)
+    return Object.values(stepMap).map(({ url }, index) =>
+      this.renderBar.bind(this)(url, index)
     );
   }
 
