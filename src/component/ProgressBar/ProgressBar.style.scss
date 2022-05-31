@@ -1,0 +1,52 @@
+.ProgressBar {
+    @include after-mobile {
+        background: var(--breadcrumbs-background);
+        min-height: var(--breadcrumbs-height);
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+    }
+
+    &-Container {
+        width: 100%;
+    }
+
+    &-LineAndValue {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 94%;
+    }
+
+    &-Line {
+        width: 70%;
+        height: 3px;
+        background-color: #333;
+        flex: 3;
+
+        &_isActive {
+            background-color: var(--primary-base-color);
+        }
+
+        &_index {
+
+            &_0 {
+                background-color: var(--primary-base-color);
+            }
+        }
+    }
+
+    &-Value {
+        background-color: var(--primary-base-color);
+        border: 1px solid;
+        padding: 1px 5px;
+        border-radius: 50%;
+        margin-top: 10px;
+        text-align: center;
+        color: #fff;
+    }
+
+    &-Step {
+        float: right;
+    }
+}
