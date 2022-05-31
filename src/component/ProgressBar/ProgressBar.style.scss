@@ -19,6 +19,10 @@
                 &-Step {
                     display: none;
                 }
+                &-Line {
+        margin-top: -10px;
+
+                }
             }
         }
     }
@@ -27,7 +31,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 94%;
+        width: 98%;
     }
 
     &-Line {
@@ -49,9 +53,11 @@
         margin-top: 10px;
         text-align: center;
         color: #fff;
+        margin-left: 10px;
     }
 
     &-Step {
         float: right;
+        text-transform: capitalize;
     }
 }

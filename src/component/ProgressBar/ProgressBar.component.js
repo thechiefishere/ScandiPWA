@@ -45,7 +45,7 @@ class ProgressBar extends PureComponent {
           </p>
         </div>
         <div block='ProgressBar' elem='Step'>
-          {step}
+          {step.substring(1)}
         </div>
       </div>
     );
