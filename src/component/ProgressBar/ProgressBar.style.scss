@@ -4,11 +4,23 @@
         min-height: var(--breadcrumbs-height);
         display: flex;
         justify-content: space-between;
+        align-items: center;
         padding: 5px;
     }
 
     &-Container {
         width: 100%;
+
+        &:last-of-type {
+            .ProgressBar {
+                &-Value {
+                    display: none;
+                }
+                &-Step {
+                    display: none;
+                }
+            }
+        }
     }
 
     &-LineAndValue {
@@ -26,13 +38,6 @@
 
         &_isActive {
             background-color: var(--primary-base-color);
-        }
-
-        &_index {
-
-            &_0 {
-                background-color: var(--primary-base-color);
-            }
         }
     }
 

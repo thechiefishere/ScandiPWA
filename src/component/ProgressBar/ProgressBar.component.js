@@ -21,8 +21,6 @@ class ProgressBar extends PureComponent {
     let presentPath = '';
     let indexOfPathInStep = null;
 
-    console.log('pathName', pathName);
-
     if (pathName.indexOf('checkout') !== -1) {
       presentPath = pathName.split('/').slice(-1).toString();
     }
