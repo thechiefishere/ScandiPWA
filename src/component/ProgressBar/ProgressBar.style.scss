@@ -47,7 +47,24 @@
 
         &_isActive {
             background-color: var(--primary-base-color);
+            // animation: animate-color 2s;
         }
+
+        &_isProgressing {
+            position: relative;
+            &::before {
+                content: '';
+                width: calc(var(--progress-width, 0) * 1%);
+                background-color: var(--primary-base-color);
+                max-width: 100%;
+                // width: 100%;
+                height: inherit;
+                position: absolute;
+                top: 0px;
+                left: 0%;
+            }
+        }
+
     }
 
     &-Value {
@@ -68,4 +85,15 @@
         float: right;
         text-transform: capitalize;
     }
+}
+
+@keyframes animate-color {
+    from {
+        background-color: blue;
+    }
+
+    to {
+        background-color: red;
+    }
+    
 }

@@ -20,6 +20,7 @@ export class ProgressBarContainer extends PureComponent {
         step: PropTypes.string,
       }),
     }).isRequired,
+    isMobile: PropTypes.bool.isRequired,
   };
 
   containerFunctions = {
@@ -30,6 +31,7 @@ export class ProgressBarContainer extends PureComponent {
     // isDisabled: this._getIsDisabled()
     stepMap: this.props.stepMap,
     match: this.props.match,
+    isMobile: this.props.isMobile,
   });
 
   render() {

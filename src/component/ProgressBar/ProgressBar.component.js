@@ -12,15 +12,53 @@ class ProgressBar extends PureComponent {
         step: PropTypes.string,
       }),
     }).isRequired,
+    isMobile: PropTypes.bool.isRequired,
   };
 
-  renderBar(step, index = 0) {
+  state = {
+    progressLine: 0,
+    interval: null,
+    pageUrl: '',
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      match: { url },
+    } = this.props;
+    const { pageUrl } = this.state;
+    const { progressLine } = this.state;
+    const {
+      progressLine: { prevProgressLine },
+    } = prevState;
+
+    if (pageUrl !== url) {
+      this.setState({ progressLine: 0 });
+      this.setState({ pageUrl: url });
+    }
+
+    if (progressLine <= 101 && progressLine !== prevProgressLine) {
+      const progressBar = document.getElementsByClassName(
+        'ProgressBar-Line_isProgressing'
+      )[0];
+      if (progressBar) {
+        const interval = setTimeout(() => {
+          progressBar.style.setProperty('--progress-width', progressLine);
+          this.setState({ progressLine: progressLine + 1 });
+        }, 5);
+        if (progressLine === 101) clearTimeout(interval);
+      }
+    }
+  }
+
+  renderLineAndValue(index) {
     const { stepMap } = this.props;
     const { match } = this.props;
+
     let isActive = false;
     const pathName = match.url;
     let presentPath = '';
     let indexOfPathInStep = null;
+    let isProgressing = false;
 
     if (pathName.indexOf('checkout') !== -1) {
       presentPath = pathName.split('/').slice(-1).toString();
@@ -33,23 +71,60 @@ class ProgressBar extends PureComponent {
         break;
       }
     }
-    if (indexOfPathInStep !== null && index <= indexOfPathInStep) {
+    if (indexOfPathInStep !== null && index < indexOfPathInStep) {
       isActive = true;
+    }
+    if (indexOfPathInStep !== null && index === indexOfPathInStep) {
+      isProgressing = true;
     }
 
     const text = index < indexOfPathInStep ? <CorrectIcon /> : index + 1;
 
     return (
+      <div block='ProgressBar' elem='LineAndValue'>
+        {this.renderProgressLine(isActive, isProgressing)}
+        {this.renderValueOrMark(text)}
+      </div>
+    );
+  }
+
+  renderStep(step) {
+    return (
+      <div block='ProgressBar' elem='Step'>
+        {step.substring(1)}
+      </div>
+    );
+  }
+
+  renderValueOrMark(text) {
+    return (
+      <p block='ProgressBar' elem='Value'>
+        {text}
+      </p>
+    );
+  }
+
+  renderProgressLine(isActive, isProgressing) {
+    return (
+      <div
+        block='ProgressBar'
+        elem='Line'
+        mods={{ isActive, isProgressing }}
+      ></div>
+    );
+  }
+
+  renderBar(step, index = 0) {
+    const { isMobile } = this.props;
+
+    if (isMobile) {
+      return '';
+    }
+
+    return (
       <div key={index} block='ProgressBar' elem='Container'>
-        <div block='ProgressBar' elem='LineAndValue'>
-          <div block='ProgressBar' elem='Line' mods={{ isActive }}></div>
-          <p block='ProgressBar' elem='Value'>
-            {text}
-          </p>
-        </div>
-        <div block='ProgressBar' elem='Step'>
-          {step.substring(1)}
-        </div>
+        {this.renderLineAndValue(index)}
+        {this.renderStep(step)}
       </div>
     );
   }
@@ -57,16 +132,12 @@ class ProgressBar extends PureComponent {
   renderProgressBars() {
     const { stepMap } = this.props;
     return Object.values(stepMap).map(({ url }, index) =>
-      this.renderBar.bind(this)(url, index)
+      this.renderBar(url, index)
     );
   }
 
   render() {
-    return (
-      <section block='ProgressBar'>
-        {this.renderProgressBars.bind(this)()}
-      </section>
-    );
+    return <section block='ProgressBar'>{this.renderProgressBars()}</section>;
   }
 }
 

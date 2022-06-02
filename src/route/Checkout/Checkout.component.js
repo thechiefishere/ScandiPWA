@@ -349,10 +349,11 @@ export class Checkout extends PureComponent {
 
   render() {
     const { match } = this.props;
+    const { isMobile } = this.props;
 
     return (
       <main block='Checkout'>
-        <ProgressBar stepMap={this.stepMap} match={match} />
+        <ProgressBar stepMap={this.stepMap} match={match} isMobile={isMobile} />
         <ContentWrapper
           wrapperMix={{ block: 'Checkout', elem: 'Wrapper' }}
           label={__('Checkout page')}
